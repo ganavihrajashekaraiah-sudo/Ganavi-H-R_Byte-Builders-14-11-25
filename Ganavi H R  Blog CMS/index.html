@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Blog CMS Dashboard</title>
+
+<style>
+
+
+
+:root {
+  --primary: #16a34a; /* green default */
+  --primary-light: #22c55e;
+  --text-dark: #0f172a;
+  --text-light: #ffffff;
+  --bg-light: #f1f5f9;
+}
+
+/* Blue Theme */
+body.blue {
+  --primary: #2563eb;
+  --primary-light: #3b82f6;
+}
+
+/* Purple Theme */
+body.purple {
+  --primary: #7c3aed;
+  --primary-light: #a855f7;
+}
+
+/* Orange Theme */
+body.orange {
+  --primary: #ea580c;
+  --primary-light: #f97316;
+}
+
+/* -------------------------------------- */
+/* ========== BASE STYLES ========== */
+/* -------------------------------------- */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg-light);
+  color: var(--text-dark);
+  transition: 0.3s ease;
+}
+
+.container {
+  display: flex;
+}
+
+/* -------------------------------------- */
+/* ========== SIDEBAR ========== */
+/* -------------------------------------- */
+
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background: var(--primary);
+  color: white;
+  position: fixed;
+  top: 0;
+  left: -250px;
+  transition: 0.3s ease;
+  padding-top: 70px;
+}
+
+.sidebar a {
+  display: block;
+  padding: 12px 20px;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.sidebar a:hover {
+  background: var(--primary-light);
+}
+
+/* Sidebar visible */
+.sidebar.show {
+  left: 0;
+}
+
+/* -------------------------------------- */
+/* ========== NAVBAR ========== */
+/* -------------------------------------- */
+
+.navbar {
+  height: 65px;
+  background: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+}
+
+.menu-btn {
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.nav-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Search bar */
+.search-box input {
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  width: 260px;
+}
+
+/* Right Section */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Theme Selector */
+.theme-select {
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Profile circle */
+/* ---------- NAVBAR ---------- */
+.navbar {
+  height: 65px;
+  background: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;     /* FIX 1 */
+  justify-content: space-between;
+  padding: 0 20px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+}
+
+/* NAV RIGHT FIX */
+.nav-right {
+  display: flex;
+  align-items: center;     /* FIX 2 */
+  gap: 18px;
+}
+
+/* PROFILE FIX */
+.profile {
+  width: 40px;              
+  height: 40px;
+  background: white;
+  color: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;      /* FIX 3 */
+  justify-content: center;  /* FIX 4 */
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 18px;          /* clearer letter */
+  border: 2px solid var(--primary-light);  /* FIX 5 — visible border */
+}
+
+
+/* Profile dropdown */
+.profile-menu {
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  background: white;
+  color: var(--text-dark);
+  border-radius: 8px;
+  width: 150px;
+  display: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.profile-menu.show {
+  display: block;
+}
+
+.profile-menu a {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: var(--text-dark);
+}
+
+.profile-menu a:hover {
+  background: #e2e8f0;
+}
+
+
+
+.content {
+  margin-top: 80px;
+  padding: 25px;
+  margin-left: 0;
+  transition: 0.3s ease;
+}
+
+.sidebar.show ~ .content {
+  margin-left: 250px;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .search-box {
+    display: none;
+  }
+}
+</style>
+</head>
+<body class="green">
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <a href="#">🏠 Dashboard</a>
+  <a href="#">📝 Posts</a>
+  <a href="#">📁 Categories</a>
+  <a href="#">💬 Comments</a>
+  <a href="#">🖼 Media Library</a>
+  <a href="#">👤 Users</a>
+  <a href="#">⚙ Settings</a>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+
+  <span class="menu-btn" id="menuBtn">☰</span>
+
+  <span class="nav-title">Blog CMS Dashboard</span>
+
+  <div class="search-box">
+    <input type="text" placeholder="Search posts, categories..." />
+  </div>
+
+  <div class="nav-right">
+  <select class="theme-select" id="themeChange">
+    <option value="green">Green</option>
+    <option value="blue">Blue</option>
+    <option value="purple">Purple</option>
+    <option value="orange">Orange</option>
+  </select>
+
+  <div class="profile" id="profileBtn">A</div>
+</div>
+
+</nav>
+
+<!-- PROFILE DROPDOWN -->
+<div class="profile-menu" id="profileMenu">
+  <a href="#">My Profile</a>
+  <a href="#">Account</a>
+  <a href="#">Logout</a>
+</div>
+
+<!-- CONTENT -->
+<div class="content" id="content">
+  <h2>Welcome to the Blog CMS Dashboard</h2>
+  <p>Manage your posts, categories, comments, and media easily.</p>
+</div>
+
+<script>
+
+/* SIDE BAR TOGGLE */
+document.getElementById("menuBtn").onclick = () => {
+  document.getElementById("sidebar").classList.toggle("show");
+};
+
+/* PROFILE DROPDOWN */
+document.getElementById("profileBtn").onclick = () => {
+  document.getElementById("profileMenu").classList.toggle("show");
+};
+
+/* THEME SWITCHER */
+document.getElementById("themeChange").onchange = (e) => {
+  document.body.className = e.target.value;
+};
+
+</script>
+
+</body>
+</html>
